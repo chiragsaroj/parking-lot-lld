@@ -1,7 +1,7 @@
 @startuml
 !include theme.puml
 
-' Vehicle
+
 abstract class Vehicle <<abstract>>{
 - size: VehicleSize
 - vehicle_number: str
@@ -13,12 +13,12 @@ enum VehicleSize <<enum>>{
     LARGE
 }
 
-VehicleSize <-l- Vehicle
+Vehicle -r-> VehicleSize
 Vehicle <|-- Car
 Vehicle <|-- Bike
 Vehicle <|-- Truck
 
-' Parking
+
 class ParkingSpot{
     - spot_id: str
     - spot_size: VehicleSize
@@ -58,11 +58,11 @@ ParkingLot --> Ticket
 ParkingLot --> PricingStrategy
 ParkingLot --> ParkingFloor
 ParkingSpot --> Vehicle
-ParkingFloor "1" *-- "many" ParkingSpot
+ParkingFloor "1" *-- "0..*" ParkingSpot
 Ticket --> Vehicle
 Ticket --> ParkingSpot
 
-' Gate
+
 class EntryGate{
     - parking_lot_instance: ParkingLot
     + park(vehicle: Vehicle) -> Ticket
@@ -73,10 +73,9 @@ class ExitGate{
     + unpark(ticket: Ticket) -> float
 }
 
-ParkingLot "1" -u-> "many" ExitGate
-ParkingLot "1" -u-> "many" EntryGate
+EntryGate ..> ParkingLot
+ExitGate ..> ParkingLot
 
-' Pricing 
 
 interface PricingStrategy<<interface>>{
     + calculate_price(ticket: Ticket) -> float
@@ -84,9 +83,11 @@ interface PricingStrategy<<interface>>{
 
 class HourlyPricingStrategy{
     - RATE_PER_HOUR: float
+    + calculate_price(ticket: Ticket) -> float
 }
 class VehiclePricingStrategy{
     - RATES: Dict[VehicleSize, float]
+    + calculate_price(ticket: Ticket) -> float
 }
 
 PricingStrategy <|.. HourlyPricingStrategy

@@ -20,7 +20,7 @@ def main():
     first_floor = ParkingFloor(1, [ParkingSpot("F1", VehicleSize.LARGE)])
 
     service = ParkingLot.get_instance()
-    service.set_pricing_strategy(VehiclePricingStrategy())
+    # service.set_pricing_strategy(VehiclePricingStrategy())
     service.add_floors([ground_floor, first_floor])
 
     bike = Bike("123")
