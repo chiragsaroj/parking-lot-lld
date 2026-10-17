@@ -56,11 +56,11 @@ interface PricingStrategy<<interface>>{
 class HourlyRateStrategy{
     + calculate_fees(parking_ticket: ParkingTicket) -> float
 }
-class VehicleBasedRateStrategy{
+class VehicleRateStrategy{
     + calculate_fees(parking_ticket: ParkingTicket) -> float
 }
 
 PricingStrategy <|.. HourlyRateStrategy
-PricingStrategy <|.. VehicleBasedRateStrategy
+PricingStrategy <|.. VehicleRateStrategy
 
 @enduml

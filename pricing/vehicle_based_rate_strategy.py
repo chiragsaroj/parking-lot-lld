@@ -2,7 +2,7 @@ from pricing.pricing_strategy import PricingStrategy
 from vehicle.vehicle_size import VehicleSize
 
 
-class VehicleBasedRateStrategy(PricingStrategy):
+class VehicleRateStrategy(PricingStrategy):
     RATES = {
         VehicleSize.SMALL: 20.0,
         VehicleSize.MEDIUM: 50.0,
