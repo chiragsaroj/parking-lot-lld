@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
-from parking.parking_ticket import ParkingTicket
+from ticket.ticket import Ticket
 
 
 class PricingStrategy(ABC):
     @abstractmethod
-    def calculate_fees(self, parking_ticket: ParkingTicket) -> float:
+    def calculate_price(self, ticket: Ticket) -> float:
         pass

@@ -28,54 +28,55 @@ class ParkingSpot{
     + remove_vehicle()
 }
 
+class ParkingFloor{
+    - floor_number: int
+    - parking_spots: List[ParkingSpot]
+}
 
 class ParkingLot<<singleton>>{
-    - active_tickets: Dict[str, ParkingTicket]
+    - active_tickets: Dict[str, Ticket]
     - floors: List[ParkingFloor]
     - pricing_strategy: PricingStrategy
     + get_instance() -> ParkingLot
     + add_floor(floor: ParkingFloor)
-    + park_vehicle(vehicle: Vehicle) -> ParkingTicket
-    + unpark_vehicle(ticket: ParkingTicket) -> float
+    + park_vehicle(vehicle: Vehicle) -> Ticket
+    + unpark_vehicle(ticket: Ticket) -> float
 }
 
-class ParkingFloor{
-    - floor_number: int
-    - parking_spots: Dict[str, ParkingSpot]
-}
-
-class ParkingTicket{
+class Ticket{
     - ticket_id: str
     - vehicle: Vehicle
     - parking_spot: ParkingSpot
     - entry_timestamp: datetime
     - exit_timestamp: datetime
+    - charges: float
     + close_ticket(charges: float)
+    + set_exit_timestamp(exit_time: datetime)
 }
 
 
-ParkingLot --> ParkingTicket
+ParkingLot --> Ticket
 ParkingLot --> PricingStrategy
 ParkingLot --> ParkingFloor
 ParkingSpot --> Vehicle
 ParkingFloor "1" *-- "many" ParkingSpot
-ParkingTicket --> Vehicle
-ParkingTicket --> ParkingSpot
+Ticket --> Vehicle
+Ticket --> ParkingSpot
 
 ' Pricing 
 
 interface PricingStrategy<<interface>>{
-    + calculate_price(parking_ticket: ParkingTicket) -> float
+    + calculate_price(ticket: Ticket) -> float
 }
 
-class HourlyRateStrategy{
+class HourlyPricingStrategy{
     - RATE_PER_HOUR: float
 }
-class VehicleRateStrategy{
+class VehiclePricingStrategy{
     - RATES: Dict[VehicleSize, float]
 }
 
-PricingStrategy <|.. HourlyRateStrategy
-PricingStrategy <|.. VehicleRateStrategy
+PricingStrategy <|.. HourlyPricingStrategy
+PricingStrategy <|.. VehiclePricingStrategy
 
 @enduml
