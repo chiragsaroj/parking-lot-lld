@@ -33,15 +33,6 @@ class ParkingFloor{
     - parking_spots: List[ParkingSpot]
 }
 
-class ParkingLot<<singleton>>{
-    - active_tickets: Dict[str, Ticket]
-    - floors: List[ParkingFloor]
-    - pricing_strategy: PricingStrategy
-    + get_instance() -> ParkingLot
-    + add_floor(floor: ParkingFloor)
-    + park_vehicle(vehicle: Vehicle) -> Ticket
-    + unpark_vehicle(ticket: Ticket) -> float
-}
 
 class Ticket{
     - ticket_id: str
@@ -54,6 +45,14 @@ class Ticket{
     + set_exit_timestamp(exit_time: datetime)
 }
 
+class ParkingLot<<singleton>>{
+    - active_tickets: Dict[str, Ticket]
+    - parking_floors: List[ParkingFloor]
+    - pricing_strategy: PricingStrategy
+    + get_instance() -> ParkingLot
+    + park_vehicle(vehicle: Vehicle) -> Ticket
+    + unpark_vehicle(ticket: Ticket) -> float
+}
 
 ParkingLot --> Ticket
 ParkingLot --> PricingStrategy
@@ -62,6 +61,20 @@ ParkingSpot --> Vehicle
 ParkingFloor "1" *-- "many" ParkingSpot
 Ticket --> Vehicle
 Ticket --> ParkingSpot
+
+' Gate
+class EntryGate{
+    - parking_lot_instance: ParkingLot
+    + park(vehicle: Vehicle) -> Ticket
+}
+
+class ExitGate{
+    - parking_lot_instance: ParkingLot
+    + unpark(ticket: Ticket) -> float
+}
+
+ParkingLot "1" -u-> "many" ExitGate
+ParkingLot "1" -u-> "many" EntryGate
 
 ' Pricing 
 

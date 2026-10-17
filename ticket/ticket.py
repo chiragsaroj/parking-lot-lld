@@ -30,5 +30,17 @@ class Ticket:
         return self.exit_timestamp
 
 
+    def get_ticket_id(self):
+        return self.ticket_id
+
+
     def get_vehicle(self):
         return self.vehicle
+
+
+    def get_parking_spot(self):
+        return self.parking_spot
+
+
+    def get_charges(self):
+        return self.charges
