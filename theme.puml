@@ -13,11 +13,11 @@
 skinparam backgroundColor $WHITE
 skinparam defaultFontName JetBrains Mono
 skinparam defaultFontColor $NAVY
-skinparam defaultFontSize 20
+' skinparam defaultFontSize 18
 skinparam shadowing false
 skinparam roundCorner 0
-skinparam ranksep 50
-skinparam nodesep 40
+' skinparam ranksep 50
+' skinparam nodesep 40
 
 skinparam ArrowColor $NAVY
 skinparam ArrowFontColor $MUTED

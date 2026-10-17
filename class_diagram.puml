@@ -19,4 +19,22 @@ Vehicle <|-- Car
 Vehicle <|-- Bike
 Vehicle <|-- Truck
 
+class ParkingSpot{
+    - spot_id: str
+    - spot_size: VehicleSize
+    - is_occupied: bool
+    - parked_vehicle: Vehicle
+    + park_vehicle(vehicle: Vehicle)
+    + unpark_vehicle()
+    + is_available() -> bool
+}
+
+class ParkingFloor{
+    - floor_number: int
+    - parking_spots: List[ParkingSpot]
+}
+
+ParkingSpot --> Vehicle
+ParkingFloor "1" *-- "many" ParkingSpot
+
 @enduml
