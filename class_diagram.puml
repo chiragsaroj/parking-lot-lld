@@ -56,7 +56,7 @@ interface PricingStrategy<<interface>>{
 class HourlyRateStrategy{
     + calculate_fees(parking_ticket: ParkingTicket) -> float
 }
-class VehicleBasedFeeStrategy{
+class VehicleBasedRateStrategy{
     + calculate_fees(parking_ticket: ParkingTicket) -> float
 }
 
