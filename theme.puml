@@ -1,0 +1,47 @@
+
+' theme.puml
+
+!$NAVY   = "#010736"
+!$CARD   = "#F3F4FB"
+!$HEADER = "#E1E4F4"
+!$LINE   = "#C9CDE6"
+!$ORANGE = "#FF6500"
+!$WHITE  = "#FFFFFF"
+!$INK    = "#1E2455"
+!$MUTED  = "#4A5078"
+
+skinparam backgroundColor $WHITE
+skinparam defaultFontName JetBrains Mono
+skinparam defaultFontColor $NAVY
+skinparam defaultFontSize 20
+skinparam shadowing false
+skinparam roundCorner 0
+skinparam ranksep 50
+skinparam nodesep 40
+
+skinparam ArrowColor $NAVY
+skinparam ArrowFontColor $MUTED
+skinparam ArrowThickness 1.6
+
+skinparam ClassBackgroundColor $CARD
+skinparam ClassHeaderBackgroundColor $HEADER
+skinparam ClassBorderColor $ORANGE
+skinparam ClassBorderThickness 1.5
+skinparam ClassFontColor $NAVY
+skinparam ClassFontStyle bold
+skinparam ClassAttributeFontColor $INK
+skinparam ClassStereotypeFontColor $MUTED
+skinparam ClassAttributeIconSize 0
+
+skinparam PackageStyle rectangle
+skinparam PackageBackgroundColor $WHITE
+skinparam PackageBorderColor $NAVY
+skinparam PackageFontColor $NAVY
+skinparam PackageFontStyle bold
+
+skinparam NoteBackgroundColor $ORANGE
+skinparam NoteBorderColor $ORANGE
+skinparam NoteFontColor $NAVY
+skinparam TitleFontColor $NAVY
+skinparam TitleFontSize 20
+skinparam TitleFontStyle bold

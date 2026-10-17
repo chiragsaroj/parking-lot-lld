@@ -1,0 +1,22 @@
+@startuml
+!include theme.puml
+
+abstract class Vehicle <<abstract>>{
+- size: VehicleSize
+- license_number: str
++ get_license_number() -> str
++ get_size() -> VehicleSize
+}
+
+enum VehicleSize <<enum>>{
+    SMALL
+    MEDIUM
+    LARGE
+}
+
+VehicleSize <-r- Vehicle
+Vehicle <|-- Car
+Vehicle <|-- Bike
+Vehicle <|-- Truck
+
+@enduml
