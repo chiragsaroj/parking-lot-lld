@@ -1,16 +1,22 @@
-from abc import ABC, abstractmethod
-from vehicle.vehicle_size import VehicleSize
+from abc import ABC
+from enum import Enum
+
+
+class VehicleSize(Enum):
+    SMALL = "SMALL"
+    MEDIUM = "MEDIUM"
+    LARGE = "LARGE"
 
 
 class Vehicle(ABC):
-    def __init__(self, license_number: str, vehicle_size: VehicleSize):
-        self.vehicle_size = vehicle_size
-        self.license_number = license_number
+    def __init__(self, vehicle_number: str, vehicle_size: VehicleSize):
+        self.__vehicle_number = vehicle_number
+        self.__vehicle_size = vehicle_size
 
 
-    def get_license_number(self) -> str:
-        return self.license_number
+    def get_vehicle_number(self) -> str:
+        return self.__vehicle_number
 
 
     def get_vehicle_size(self) -> VehicleSize:
-        return self.vehicle_size
+        return self.__vehicle_size

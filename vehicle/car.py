@@ -1,7 +1,6 @@
-from vehicle.vehicle import Vehicle
-from vehicle.vehicle_size import VehicleSize
+from vehicle.vehicle import Vehicle, VehicleSize
 
 
 class Car(Vehicle):
-    def __init__(self, license_number):
-        super().__init__(license_number, VehicleSize.MEDIUM)
+    def __init__(self, vehicle_number):
+        super().__init__(vehicle_number, VehicleSize.MEDIUM)

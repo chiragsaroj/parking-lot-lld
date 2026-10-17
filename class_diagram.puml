@@ -1,9 +1,10 @@
 @startuml
 !include theme.puml
 
+' Vehicle
 abstract class Vehicle <<abstract>>{
 - size: VehicleSize
-- license_number: str
+- vehicle_number: str
 }
 
 enum VehicleSize <<enum>>{
@@ -18,6 +19,15 @@ Vehicle <|-- Bike
 Vehicle <|-- Truck
 
 ' Parking
+class ParkingSpot{
+    - spot_id: str
+    - spot_size: VehicleSize
+    - vehicle: Optional[Vehicle]
+    + is_spot_available() -> bool
+    + park_vehicle(vehicle: Vehicle) -> bool
+    + remove_vehicle()
+}
+
 
 class ParkingLot<<singleton>>{
     - active_tickets: Dict[str, ParkingTicket]
@@ -43,14 +53,6 @@ class ParkingTicket{
     + close_ticket(charges: float)
 }
 
-class ParkingSpot{
-    - spot_id: str
-    - spot_size: VehicleSize
-    - parked_vehicle: Optional[Vehicle]
-    + park_vehicle(vehicle: Vehicle)
-    + unpark_vehicle()
-    + is_spot_available() -> bool
-}
 
 ParkingLot --> ParkingTicket
 ParkingLot --> PricingStrategy
