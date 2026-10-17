@@ -4,8 +4,6 @@
 abstract class Vehicle <<abstract>>{
 - size: VehicleSize
 - license_number: str
-+ get_license_number() -> str
-+ get_size() -> VehicleSize
 }
 
 enum VehicleSize <<enum>>{
@@ -14,19 +12,21 @@ enum VehicleSize <<enum>>{
     LARGE
 }
 
-VehicleSize <-r- Vehicle
+VehicleSize <-l- Vehicle
 Vehicle <|-- Car
 Vehicle <|-- Bike
 Vehicle <|-- Truck
 
-class ParkingSpot{
-    - spot_id: str
-    - spot_size: VehicleSize
-    - is_occupied: bool
-    - parked_vehicle: Vehicle
-    + park_vehicle(vehicle: Vehicle)
-    + unpark_vehicle()
-    + is_available() -> bool
+' Parking
+
+class ParkingLot<<singleton>>{
+    - active_tickets: Dict[str, ParkingTicket]
+    - floors: List[ParkingFloor]
+    - pricing_strategy: PricingStrategy
+    + get_instance() -> ParkingLot
+    + add_floor(floor: ParkingFloor)
+    + park_vehicle(vehicle: Vehicle) -> ParkingTicket
+    + unpark_vehicle(ticket: ParkingTicket) -> float
 }
 
 class ParkingFloor{
@@ -40,8 +40,21 @@ class ParkingTicket{
     - parking_spot: ParkingSpot
     - entry_timestamp: datetime
     - exit_timestamp: datetime
+    + close_ticket(charges: float)
 }
 
+class ParkingSpot{
+    - spot_id: str
+    - spot_size: VehicleSize
+    - parked_vehicle: Optional[Vehicle]
+    + park_vehicle(vehicle: Vehicle)
+    + unpark_vehicle()
+    + is_spot_available() -> bool
+}
+
+ParkingLot --> ParkingTicket
+ParkingLot --> PricingStrategy
+ParkingLot --> ParkingFloor
 ParkingSpot --> Vehicle
 ParkingFloor "1" *-- "many" ParkingSpot
 ParkingTicket --> Vehicle
@@ -50,14 +63,14 @@ ParkingTicket --> ParkingSpot
 ' Pricing 
 
 interface PricingStrategy<<interface>>{
-    + calculate_fees(parking_ticket: ParkingTicket) -> float
+    + calculate_price(parking_ticket: ParkingTicket) -> float
 }
 
 class HourlyRateStrategy{
-    + calculate_fees(parking_ticket: ParkingTicket) -> float
+    - RATE_PER_HOUR: float
 }
 class VehicleRateStrategy{
-    + calculate_fees(parking_ticket: ParkingTicket) -> float
+    - RATES: Dict[VehicleSize, float]
 }
 
 PricingStrategy <|.. HourlyRateStrategy
