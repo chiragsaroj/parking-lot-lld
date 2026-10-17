@@ -31,7 +31,7 @@ class ParkingSpot{
 
 class ParkingFloor{
     - floor_number: int
-    - parking_spots: List[ParkingSpot]
+    - parking_spots: Dict[str, ParkingSpot]
 }
 
 ParkingSpot --> Vehicle
