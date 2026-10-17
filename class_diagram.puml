@@ -34,7 +34,33 @@ class ParkingFloor{
     - parking_spots: Dict[str, ParkingSpot]
 }
 
+class ParkingTicket{
+    - ticket_id: str
+    - vehicle: Vehicle
+    - parking_spot: ParkingSpot
+    - entry_timestamp: datetime
+    - exit_timestamp: datetime
+}
+
 ParkingSpot --> Vehicle
 ParkingFloor "1" *-- "many" ParkingSpot
+ParkingTicket --> Vehicle
+ParkingTicket --> ParkingSpot
+
+' Pricing 
+
+interface PricingStrategy<<interface>>{
+    + calculate_fees(parking_ticket: ParkingTicket) -> float
+}
+
+class HourlyRateStrategy{
+    + calculate_fees(parking_ticket: ParkingTicket) -> float
+}
+class VehicleBasedFeeStrategy{
+    + calculate_fees(parking_ticket: ParkingTicket) -> float
+}
+
+PricingStrategy <|.. HourlyRateStrategy
+PricingStrategy <|.. VehicleBasedRateStrategy
 
 @enduml

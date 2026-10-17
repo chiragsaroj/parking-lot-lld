@@ -1,4 +1,5 @@
 
 
 class ParkingTicket:
-    pass
+    def __init__(self, vehicle: Vehicle, parking_spot):
+        pass
